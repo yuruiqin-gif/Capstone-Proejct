@@ -41,5 +41,5 @@ function GameStart() {
 function playEasy() { //Easy Mode
 
   //chemical formulas
-  let carbonDioxide = ``
+  let carbonDioxide = "";
 }
