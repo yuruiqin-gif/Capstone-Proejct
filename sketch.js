@@ -7,6 +7,10 @@ let startButton;
 let easyMode;
 
 var timerValue = 10;
+let gameActivity = false;
+
+let circleX = 0;
+let circleY = 0;
 
 function setup() {
   background(220);
@@ -54,13 +58,78 @@ function timer(){
   }
 }
 
+
 function playEasy() { //Easy Mode
   background(220);
   easyMode.remove();
-  timer();
+  gameActivity = true;
+  // timer();
+
   //chemical formulas
   let carbonDioxide = "";
+
+  fill(237, 39, 36);
+
+  let atom = createDiv('Atom')
+  atom.position(100,100)
+  atom.size(50,50)
+  // let atom = circle(100,100,50);
+  atom.draggable();
+  // let atom = circle(circleX,circleY, 25)
+  // atom.mousePressed(mouseX, mouseY, 25)
+
+
 }
+
+
+// class Planet{
+//   constructor(x, y){
+//     this.x = x;  this.y = y;  this.s = 100;
+//     this.atoms = [];
+//   }
+
+//   relocate(){
+//     myPlanet.x = mouseX;
+//     myPlanet.y = mouseY;
+//     for(let a of this.atoms){
+//       a.x = mouseX;
+//       a.y = mouseY;
+//     }
+//   }
+
+//   createAtoms(){
+//     this.atoms.push(new Atoms(this.x, this.y));
+//   }
+  
+//   display(){ //draw the moon as a circle at its location
+//     circle(this.x, this.y, this.s);
+//     for (let a of this.Atoms){
+//       a.update();
+//     }
+//   }
+// }
+
+// class Atoms{
+//   constructor(x,y){
+//     this.x = x; this.y = y; this.speed = 2;
+//     this.angle = 0; this.orbitRadius = 80;
+//     this.s = 25;
+//   }
+//   update(){
+//     this.move();
+//     this.display();
+//   }
+//   move(){
+//     this.angle += this.speed;
+//   }
+//   display(){
+//     push();
+//     translate(this.x, this.y);
+//     rotate(this.angle);
+//     circle(this.orbitRadius,0,this.s);
+//     pop();
+//   }
+// }
 
 // var timerValue = 100;
 // function setup() {
