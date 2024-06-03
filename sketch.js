@@ -12,6 +12,10 @@ let gameActivity = false;
 let circleX = 0;
 let circleY = 0;
 
+let x = 200;
+let y = 200;
+let dragging = false;
+
 function setup() {
   background(220);
   createCanvas(windowWidth, windowHeight);
@@ -70,17 +74,92 @@ function playEasy() { //Easy Mode
 
   fill(237, 39, 36);
 
-  let atom = createDiv('Atom')
-  atom.position(100,100)
-  atom.size(50,50)
-  // let atom = circle(100,100,50);
-  atom.draggable();
+  //Hydrogen
+  let hydrogen = createDiv('H');
+  hydrogen.position(100,windowHeight-300);
+  hydrogen.size(50,50);
+  hydrogen.style('font-size', '50px');
+  hydrogen.draggable();
+
+  //Lithium
+  let lithium = createDiv('Li');
+  lithium.position(100,windowHeight-250);
+  lithium.size(50,50);
+  lithium.style('font-size', '50px');
+  lithium.draggable();
+
+  //Sodium
+  let sodium = createDiv('Na');
+  sodium.position(100,windowHeight-200);
+  sodium.size(50,50);
+  sodium.style('font-size', '50px');
+  sodium.draggable();
+
+  //Potassium
+  let potassium = createDiv('K');
+  potassium.position(100,windowHeight-150);
+  potassium.size(50,50);
+  potassium.style('font-size', '50px');
+  potassium.draggable();
+  
+  //Berryllium
+  let berryllium = createDiv('Be');
+  berryllium.position(170,windowHeight-250);
+  berryllium.size(50,50);
+  berryllium.style('font-size', '50px');
+  berryllium.draggable();
+
+  //Magnesium
+  let magnesium = createDiv('Mg');
+  magnesium.position(170,windowHeight-200);
+  magnesium.size(50,50);
+  magnesium.style('font-size', '50px');
+  magnesium.draggable();
+
+  //Calcium
+  let calcium = createDiv('Ca');
+  calcium.position(170,windowHeight-150);
+  calcium.size(50,50);
+  calcium.style('font-size', '50px');
+  calcium.draggable();
+
+  //Boron
+  let boron = createDiv('B');
+  boron.position(190,windowHeight-250);
+  boron.size(50,50);
+  boron.style('font-size', '50px');
+  boron.draggable();
+
   // let atom = circle(circleX,circleY, 25)
   // atom.mousePressed(mouseX, mouseY, 25)
 
+  ///////////////////////////////////////////
+  // while (true){
+  //   if(dragging){
+  //     x = mouseX;
+  //     y = mouseY;
+  //   }
 
+  //   noStroke();
+  //   ellipse(x,y,50,50);
+
+  //   if(dist(x, y, mouseX, mouseY) < diameter/2){
+  //     dragging = true;
+  //   }
+  //   dragging = false;
+  // }
 }
 
+// function mousePressed() {
+//   //check if mouse is over the ellipse
+//   if(dist(x, y, mouseX, mouseY) < diameter/2){
+//     dragging = true;
+//   }
+// }
+
+// function mouseReleased(){
+//   dragging = false;
+// }
 
 // class Planet{
 //   constructor(x, y){
