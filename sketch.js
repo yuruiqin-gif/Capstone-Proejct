@@ -16,8 +16,12 @@ let x = 200;
 let y = 200;
 let dragging = false;
 
+function preload(){
+  title = loadImage("title.jpg");
+}
+
 function setup() {
-  background(220);
+  background(title);
   createCanvas(windowWidth, windowHeight);
 
   textSize(100);
@@ -125,10 +129,94 @@ function playEasy() { //Easy Mode
 
   //Boron
   let boron = createDiv('B');
-  boron.position(190,windowHeight-250);
+  boron.position(250,windowHeight-250);
   boron.size(50,50);
   boron.style('font-size', '50px');
   boron.draggable();
+
+  //Aluminium
+  let aluminium = createDiv('Al');
+  aluminium.position(250,windowHeight-200);
+  aluminium.size(50,50);
+  aluminium.style('font-size', '50px');
+  aluminium.draggable();
+
+  //Carbon
+  let carbon = createDiv('C');
+  carbon.position(310,windowHeight-250);
+  carbon.size(50,50);
+  carbon.style('font-size', '50px');
+  carbon.draggable();
+
+  //Silicon
+  let silicon = createDiv('Si');
+  silicon.position(310,windowHeight-200);
+  silicon.size(50,50);
+  silicon.style('font-size', '50px');
+  silicon.draggable();
+
+  //Nitrogen
+  let nitrogen = createDiv('N');
+  nitrogen.position(370,windowHeight-250);
+  nitrogen.size(50,50);
+  nitrogen.style('font-size', '50px');
+  nitrogen.draggable();
+
+  //Phosphorus
+  let phosphorus = createDiv('P');
+  phosphorus.position(370,windowHeight-200);
+  phosphorus.size(50,50);
+  phosphorus.style('font-size', '50px');
+  phosphorus.draggable(); 
+
+  //Oxygen
+  let oxygen = createDiv('O');
+  oxygen.position(420,windowHeight-250);
+  oxygen.size(50,50);
+  oxygen.style('font-size', '50px');
+  oxygen.draggable();
+
+  //Sulfur
+  let sulfur = createDiv('S');
+  sulfur.position(420,windowHeight-200);
+  sulfur.size(50,50);
+  sulfur.style('font-size', '50px');
+  sulfur.draggable(); 
+
+  //Fluorine
+  let fluorine = createDiv('F');
+  fluorine.position(470,windowHeight-250);
+  fluorine.size(50,50);
+  fluorine.style('font-size', '50px');
+  fluorine.draggable();
+
+  //Chlorine
+  let chlorine = createDiv('Cl');
+  chlorine.position(470,windowHeight-200);
+  chlorine.size(50,50);
+  chlorine.style('font-size', '50px');
+  chlorine.draggable(); 
+
+  //Helium
+  let helium = createDiv('He');
+  helium.position(520,windowHeight-300);
+  helium.size(50,50);
+  helium.style('font-size', '50px');
+  helium.draggable();
+
+  //Neon
+  let neon = createDiv('Ne');
+  neon.position(520,windowHeight-250);
+  neon.size(50,50);
+  neon.style('font-size', '50px');
+  neon.draggable();
+
+  //Argon
+  let argon = createDiv('Ar');
+  argon.position(520,windowHeight-200);
+  argon.size(50,50);
+  argon.style('font-size', '50px');
+  argon.draggable();
 
   // let atom = circle(circleX,circleY, 25)
   // atom.mousePressed(mouseX, mouseY, 25)
