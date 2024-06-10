@@ -7,31 +7,31 @@ let startButton;
 let easyMode;
 
 var timerValue = 10;
-let gameActivity = false;
+// let gameActivity = false;
 
 let circleX = 0;
 let circleY = 0;
 
 let x = 200;
 let y = 200;
-let dragging = false;
+// let dragging = false
 
 function preload(){
-  title = loadImage("title.jpg");
+  title = loadImage("images/title.jpg");
 }
 
 function setup() {
-  background(title);
-  createCanvas(windowWidth, windowHeight);
 
+  createCanvas(windowWidth, windowHeight);
+  background(title);
   textSize(100);
-  text('Lewis Dot Sim', (windowWidth/2)-200, 300);
+
   //Intro Screen Button
   startButton = createButton("Click To Start");
   startButton.mousePressed(GameStart);
   // startButton.style("font-family", "Optima bold");
   startButton.style("font-size", "30px");
-  startButton.position(windowWidth/2, windowHeight/2);
+  startButton.position(windowWidth/2-75, windowHeight/2);
 }
 
 function draw() {
@@ -70,7 +70,7 @@ function timer(){
 function playEasy() { //Easy Mode
   background(220);
   easyMode.remove();
-  gameActivity = true;
+  // gameActivity = true;
   // timer();
 
   //chemical formulas
