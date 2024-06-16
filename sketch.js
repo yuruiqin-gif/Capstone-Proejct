@@ -16,35 +16,41 @@
 // let y = 200;
 
 
-let shells = [];
+let shells = [[]];
+let shellMax = [2,8,18,32];
+let rad = [100];
+let electronTotal = 0;
+
+let correct = 0;
+let incorrect = 0;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
   stroke(0);
   noFill();
 
-  //Intro Screen Button
-  startButton = createButton("Click To Start");
-  startButton.mousePressed(GameStart);
+  // //Intro Screen Button
+  // startButton = createButton("Click To Start");
+  // startButton.mousePressed(GameStart);
 
-  startButton.style("font-size", "30px");
-  startButton.position(windowWidth/2-75, windowHeight/2-20);
+  // startButton.style("font-size", "30px");
+  // startButton.position(windowWidth/2-75, windowHeight/2-20);
 }
 
-function GameStart() {
-  background(237, 39, 36);
-  startButton.remove();
+// function GameStart() {
+//   background(237, 39, 36);
+//   startButton.remove();
 
-  textSize(100);
-  fill(220);
-  text('Chose your level', (windowWidth/2)-300, 300);
+//   textSize(100);
+//   fill(220);
+//   text('Chose your level', (windowWidth/2)-300, 300);
 
- //Mode selection scene
-  easyMode = createButton("EASY");
-  easyMode.mousePressed(playEasy);
-  easyMode.style("font-size", "30px");
-  easyMode.position(windowWidth/2, windowHeight/2);
-}
+//  //Mode selection scene
+//   easyMode = createButton("EASY");
+//   easyMode.mousePressed(playEasy);
+//   easyMode.style("font-size", "30px");
+//   easyMode.position(windowWidth/2, windowHeight/2);
+// }
 
 function draw(){
   noFill();
@@ -53,13 +59,41 @@ function draw(){
   circle(0, 0, 10, 10);
 
   for(i = 0; i < shells.length; i++){
-    circle(0,0,shells[i],shells[i]);
+    let shellRadius = rad[i];
+    circle(0,0,shellRadius * 2, shellRadius * 2);
+
+    for(let j = 0; j < shells[i].length; j++){
+      let angle = TWO_PI / shells[i].length * j;
+      let x = shellRadius * cos(angle);
+      let y = shellRadius * sin(angle);
+      circle(x,y,10,10)
+    }
   }
+  textSize(16);
+  textAlign(LEFT, TOP);
+  text('Total Electrons: ' + electronTotal, 10 - width / 2, 10 - height / 2);
+
+  textSize(16);
+  textAlign(LEFT, TOP);
+  text('Correct: ' + correct, 10 - width / 2, 50 - height / 2);
+
+  textSize(16);
+  textAlign(LEFT, TOP);
+  text('Incorrect: ' + incorrect, 10 - width / 2, 70 - height / 2);
 }
 
 function mousePressed(){
-  let radius = 30 + 50 * shells.length;
-  shells.push(radius);
+  let currentShell = shells[shells.length - 1];
+
+  if(currentShell.length < shellMax[shells.length-1]) {
+    currentShell.push(1);
+  } else {
+    // let radius = 30 + 50 * shells.length;
+    // shells.push(radius);
+    rad.push(rad[rad.length - 1] + 50); // Increase radius for new shell
+    shells.push([1]);
+  }
+  electronTotal++;
 }
 
 // function setup(){
