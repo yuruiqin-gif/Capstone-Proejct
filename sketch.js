@@ -13,6 +13,8 @@ let correct = 0;
 let incorrect = 0;
 
 let gameState = 'menu';
+
+let timer = 60;
 let timerState = false;
 
 function setup(){
@@ -30,6 +32,9 @@ function draw(){
   else if (gameState === 'game'){
     game();
   }
+  else if (gameState === 'end'){
+    endScreen();
+  }
 }
 
 function menu(){
@@ -39,15 +44,6 @@ function menu(){
   textSize(24);
   text('Click to Start', width / 2, height / 2);
 }
-
-function timer()[
-  if (frameCount % 60 == 0 && timer > 0){
-    timer--;
-  }
-  if (timer == 0){
-    timerState = !timerState;
-  }
-]
 
 function game(){
   noFill();
@@ -82,6 +78,28 @@ function game(){
   textSize(32);
   textAlign(CENTER, CENTER);
   text(currentElement, 0, -(height / 3)-25); // Display the current element
+
+  if(frameCount % 60 == 0 && timer > 0){
+    timer--;
+  }
+  if (timer == 0){
+    gameState = 'end';
+  }
+
+  textAlign(CENTER, CENTER);
+  textSize(100);
+  text(timer, (width / 2)-200, (height / 2)-50);
+}
+
+function endScreen(){
+  background(255);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  text('Game Over', width / 2, height / 2 - 50);
+  text('Correct: ' + correct, 10 - width / 2, 50 - height / 2);
+  text('Incorrect: ' + incorrect, 10 - width / 2, 70 - height / 2);
+  textSize(24);
+  text('Click to Restart', width / 2, height / 2);
 }
 
 function mousePressed(){
@@ -91,17 +109,26 @@ function mousePressed(){
     gameState = 'game';
     generatePromblem();
   } 
-  else{
+  else if(gameState == 'game'){
 
     if(currentShell.length < shellMax[shells.length-1]) {
       currentShell.push(1);
-    } else {
+    } 
+    else {
       // let radius = 30 + 50 * shells.length;
       // shells.push(radius);
       rad.push(rad[rad.length - 1] + 50); // Increase radius for new shell
       shells.push([1]);
     }
     electronTotal++;
+  }
+  else if (gameState == 'end') {
+    gameState = 'menu';
+    correct = 0;
+    incorrect = 0;
+    timer = 60;
+    shells = [[]];
+    electronTotal = 0;
   }
 }
 
