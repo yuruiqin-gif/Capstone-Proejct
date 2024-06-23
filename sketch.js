@@ -12,10 +12,12 @@ let elementElectron = 0; //number of electrons in current element
 let correct = 0;
 let incorrect = 0;
 
+let highScore = 0;
 let gameState = 'menu';
 
 let timer = 60;
 let timerState = false;
+let gameLevel;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
@@ -29,6 +31,12 @@ function draw(){
   if (gameState === 'menu'){
     menu();
   } 
+  else if (gameState === 'timerChoice'){
+    timerChoice();
+  }
+  else if (gameState === 'levelChoice'){
+    levelChoice();
+  }
   else if (gameState === 'game'){
     game();
   }
@@ -43,6 +51,25 @@ function menu(){
   text('Electron Configuration Game', width / 2, height / 2 - 50);
   textSize(24);
   text('Click to Start', width / 2, height / 2);
+}
+
+function timerChoice(){
+  textSize(32);
+  textAlign(CENTER, TOP);
+  text('Choose Your Time Limit', width / 2, height / 2 - 50);
+  textSize(24);
+  text('1 Minute', width / 2, height / 2);
+  text('2 Minutes', width / 2, height / 2 + 30);
+  text('3 Minutes', width / 2, height / 2 + 60);
+}
+
+function levelChoice(){
+  textSize(32);
+  textAlign(CENTER, TOP);
+  text('Choose Your Time Limit', width / 2, height / 2 - 50);
+  textSize(24);
+  text('EASY (Bhor Configuration)', width / 2, height / 2);
+  text('HARD (Lewis Dot Configuration)', width / 2, height / 2 + 30);
 }
 
 function game(){
@@ -83,6 +110,9 @@ function game(){
     timer--;
   }
   if (timer == 0){
+    if(correct > highScore){ //updating the high score
+      highScore = correct;
+    }
     gameState = 'end';
   }
 
@@ -95,17 +125,36 @@ function endScreen(){
   background(255);
   textSize(32);
   textAlign(CENTER, CENTER);
-  text('Game Over', width / 2, height / 2 - 50);
-  text('Correct: ' + correct, 10 - width / 2, 50 - height / 2);
-  text('Incorrect: ' + incorrect, 10 - width / 2, 70 - height / 2);
+  text('Game Over', width / 2, height / 2 - 150);
   textSize(24);
-  text('Click to Restart', width / 2, height / 2);
+  text('Correct: ' + correct, width / 2, height / 2 - 100);
+  text('Incorrect: ' + incorrect, width / 2, height / 2 - 50);
+  text('High Score: ' + highScore, width / 2, height / 2);
+  text('Click to Restart', width / 2, height / 2 + 50);
 }
 
 function mousePressed(){
   let currentShell = shells[shells.length - 1];
 
-  if(gameState == 'menu') {
+  if(gameState === 'menu'){
+    gameState = 'timerChoice'
+  }
+  else if(gameState === 'timerChoice'){
+    if (mouseY > height / 2 && mouseY < height / 2 + 30) {
+      timer = 60; // 1 Minute
+    } else if (mouseY > height / 2 + 30 && mouseY < height / 2 + 60) {
+      timer = 120; // 2 Minutes
+    } else if (mouseY > height / 2 + 60 && mouseY < height / 2 + 90) {
+      timer = 180; // 3 Minutes
+    }
+    gameState = 'levelChoice'
+  }
+  else if(gameState === 'levelChoice') {
+    if (mouseY > height / 2 && mouseY < height / 2 + 30) {
+      gameLevel = 0; //game level is for Bhor level
+    } else if (mouseY > height / 2 + 30 && mouseY < height / 2 + 60) {
+      gameLevel = 1; //game level is for Lewis Dot level
+    }
     gameState = 'game';
     generatePromblem();
   } 
