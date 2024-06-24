@@ -1,8 +1,9 @@
-// Capstone Project
-// Yurui Qin
+// Electron Configuration Game (Capstone Project)
+// Yurui Qin.
 // CS30
 // June.24, 2024
-// Electron Configuration Game
+// Program to allow users to practice placing electrons on a Bhor Model or on a Lewis Dot Model
+// Users plays with mouse and space bar interactions.
 
 let currentElement = ' '; //current question
 
@@ -96,10 +97,10 @@ function levelChoice(){ // level selection
 
   textSize(32);
   textAlign(CENTER, TOP);
-  text('Choose Your Time Limit', width / 2, height / 2 - 50);
+  text('Choose Your Level', width / 2, height / 2 - 50);
   textSize(24);
-  text('EASY (Bhor Configuration)', width / 2, height / 2);
-  text('HARD (Lewis Dot Configuration)', width / 2, height / 2 + 30);
+  text('EASY (Bhor Model)', width / 2, height / 2);
+  text('HARD (Lewis Dot Model)', width / 2, height / 2 + 30);
 }
 
 function bohrGame(){ 
@@ -113,7 +114,7 @@ function bohrGame(){
     let shellRadius = rad[i];
     circle(0,0,shellRadius * 2, shellRadius * 2); //creating shells for the atom
 
-    for(let j = 0; j < shells[i].length; j++){
+    for(let j = 0; j < shells[i].length; j++){ //placing the electrons onto the shell
       let angle = TWO_PI / shells[i].length * j;
       let x = shellRadius * cos(angle);
       let y = shellRadius * sin(angle);
@@ -170,6 +171,7 @@ function lewisGame() {
 
   checkForBondsAndSnapping(); //checks to see if electrons are close enough to bond
 
+  //for info displayed to user
   textSize(16);
   textAlign(LEFT, TOP);
   text('Total Electrons: ' + electronTotal, 10 - width / 2, 10 - height / 2);
@@ -181,13 +183,13 @@ function lewisGame() {
   text(currentElement, 0, -(height / 3) - 25); // Display the current element
 
   if (frameCount % 60 === 0 && timer > 0) {
-    timer--;
+    timer--; //updating timer
   }
   if (timer === 0) {
     if (correct > highScore) { // Updating the high score
       highScore = correct;
     }
-    gameState = 'end';
+    gameState = 'end'; //switch to end screen if timer hits 0
   }
 
   textAlign(CENTER, CENTER);
@@ -200,33 +202,13 @@ function checkForBondsAndSnapping() { //checks to see if electrons are close eno
     for (let j = i + 1; j < electrons.length; j++) {
       let d = dist(electrons[i].x, electrons[i].y, electrons[j].x, electrons[j].y);
       if (d < snapDistance) {
-        electrons[i].snapToElectron(electrons[j]);
+        electrons[i].snapToElectron(electrons[j]); //creates bond
         stroke(0);
         line(electrons[i].x, electrons[i].y, electrons[j].x, electrons[j].y);
       }
     }
   }
 }
-
-// function drawLewisDotStructure(element, electrons) {
-//   let positions = [
-//     { x: -20, y: -40 }, // Top left
-//     { x: 20, y: -40 },  // Top right
-//     { x: 40, y: -20 },  // Right top
-//     { x: 40, y: 20 },   // Right bottom
-//     { x: 20, y: 40 },   // Bottom right
-//     { x: -20, y: 40 },  // Bottom left
-//     { x: -40, y: 20 },  // Left bottom
-//     { x: -40, y: -20 }  // Left top
-//   ];
-
-//   for (let i = 0; i < electrons; i++) {
-//     let pos = positions[i % 8];
-//     let x = pos.x;
-//     let y = pos.y;
-//     circle(x, y, 25);
-//   }
-// }
 
 function endScreen(){ //displays how the user did that round
   background(title);
@@ -242,17 +224,17 @@ function endScreen(){ //displays how the user did that round
 }
 
 function mousePressed(){
-  // let currentShell = shells[shells.length - 1];
-
   if(gameState === 'menu'){
     gameState = 'timerChoice'
   }
   else if(gameState === 'timerChoice'){ //sets timer to user's choice
     if (mouseY > height / 2 && mouseY < height / 2 + 30) {
       timer = 60; // 1 Minute
-    } else if (mouseY > height / 2 + 30 && mouseY < height / 2 + 60) {
+    } 
+    else if (mouseY > height / 2 + 30 && mouseY < height / 2 + 60) {
       timer = 120; // 2 Minutes
-    } else if (mouseY > height / 2 + 60 && mouseY < height / 2 + 90) {
+    } 
+    else if (mouseY > height / 2 + 60 && mouseY < height / 2 + 90) {
       timer = 180; // 3 Minutes
     }
     gameState = 'levelChoice'
@@ -260,7 +242,8 @@ function mousePressed(){
   else if(gameState === 'levelChoice') { //sets level to user's choice
     if (mouseY > height / 2 && mouseY < height / 2 + 30) {
       gameLevel = 0; //game level is for Bhor level
-    } else if (mouseY > height / 2 + 30 && mouseY < height / 2 + 60) {
+    } 
+    else if (mouseY > height / 2 + 30 && mouseY < height / 2 + 60) {
       gameLevel = 1; //game level is for Lewis Dot level
     }
     gameState = 'game';
@@ -310,7 +293,7 @@ function mouseDragged() { //lets user drag electron in Lewis model
   }
 }
 
-function keyPressed(){ //space bar submits user's anser's to be checked.
+function keyPressed(){ //space bar submits user's answer's to be checked.
   if (key === ' ' && gameState === 'game'){
     checkAnswer();
     if (gameLevel === 1) {
@@ -323,7 +306,7 @@ function keyPressed(){ //space bar submits user's anser's to be checked.
 function generateProblem(){ //For Bohr Model Level
     if (gameLevel === 0){
     let elements = ['H', 'Li', 'Na', 'Be','Mg','O','S','F','Cl','He','Ne','Ar'];
-    for (let i = elements.length - 1; i > 0; i--) { //randomizes te elements list
+    for (let i = elements.length - 1; i > 0; i--) { //randomizes the elements list
       let j = Math.floor(Math.random() * (i + 1));
       [elements[i], elements[j]] = [elements[j], elements[i]]; 
     }
@@ -368,7 +351,7 @@ function generateProblem(){ //For Bohr Model Level
   }
   else if (gameLevel === 1){ //For Lewis Dot Structure Level
     let elements = ['H', 'Li', 'Na', 'Be','Mg','O','S','F','Cl','He','Ne','Ar'];
-    for (let i = elements.length - 1; i > 0; i--) {//randomizes te elements list
+    for (let i = elements.length - 1; i > 0; i--) {//randomizes the elements list
       let j = Math.floor(Math.random() * (i + 1));
       [elements[i], elements[j]] = [elements[j], elements[i]];
     }
@@ -381,16 +364,16 @@ function generateProblem(){ //For Bohr Model Level
       elementElectron = 1;
     }
     else if(currentElement === 'Na'){
-      elementElectron = 2;
+      elementElectron = 1;
     }
     else if(currentElement === 'Be'){
-      elementElectron = 3;
+      elementElectron = 2;
     }
     else if(currentElement === 'Mg'){
-      elementElectron = 4;
+      elementElectron = 2;
     }
     else if(currentElement === 'O'){
-      elementElectron = 5;
+      elementElectron = 6;
     }
     else if(currentElement === 'S'){
       elementElectron = 6;
@@ -399,16 +382,16 @@ function generateProblem(){ //For Bohr Model Level
       elementElectron = 7;
     }
     else if(currentElement === 'Cl'){
-      elementElectron = 8;
+      elementElectron = 7;
     }
     else if(currentElement === 'He'){
-      elementElectron = 1;
-    }
-    else if(currentElement === 'Ne'){
       elementElectron = 2;
     }
+    else if(currentElement === 'Ne'){
+      elementElectron = 8;
+    }
     else if(currentElement === 'Ar'){
-      elementElectron = 3;
+      elementElectron = 8;
     }
     else if (currentElement === 'Si') {
       elementElectron = 4;
